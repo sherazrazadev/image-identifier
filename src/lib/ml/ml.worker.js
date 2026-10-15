@@ -7,6 +7,17 @@ import { createWorkerResponse } from "../workers/contract.js";
 env.allowLocalModels = false;
 env.useBrowserCache = true;
 
+// Pages file limit is 25 MiB; ORT asyncify WASM is larger, so do not ship it
+// in dist. Point at the matching onnxruntime-web release on jsDelivr.
+const ortWebVersion = env.backends?.onnx?.versions?.web;
+if (ortWebVersion && env.backends?.onnx?.wasm && !env.backends.onnx.wasm.wasmPaths) {
+  const prefix = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ortWebVersion}/dist/`;
+  env.backends.onnx.wasm.wasmPaths = {
+    mjs: `${prefix}ort-wasm-simd-threaded.asyncify.mjs`,
+    wasm: `${prefix}ort-wasm-simd-threaded.asyncify.wasm`,
+  };
+}
+
 /** @type {Set<string>} */
 const cancelledJobs = new Set();
 
