@@ -1,0 +1,201 @@
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/800.css";
+@import "tailwindcss";
+
+/*
+  Light default (tool-site style). Dark follows prefers-color-scheme.
+  Display + body: Plus Jakarta Sans — open proportions, not compressed geometric.
+*/
+
+:root {
+  color-scheme: light;
+
+  --bg: #f7f8fa;
+  --bg-elevated: #ffffff;
+  --fg: #121820;
+  --muted: #5a6570;
+  --accent: #0a7a6c;
+  --accent-fg: #ffffff;
+  --warn: #b7791f;
+  --danger: #b42318;
+  --ok: #0f7a4d;
+  --border: color-mix(in srgb, var(--fg) 12%, transparent);
+  --radius: 14px;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --max-tool: 42rem;
+  --grain-opacity: 0.03;
+  --hero-glow: color-mix(in srgb, var(--accent) 14%, transparent);
+  --hero-glow-2: color-mix(in srgb, #6b8cae 10%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bg: #12161c;
+    --bg-elevated: #1a2029;
+    --fg: #e8edf2;
+    --muted: #9aa6b4;
+    --accent: #3dbea8;
+    --accent-fg: #0a1614;
+    --warn: #e0a84a;
+    --danger: #e26d7a;
+    --ok: #5ecf9a;
+    --border: color-mix(in srgb, var(--fg) 14%, transparent);
+    --grain-opacity: 0.045;
+    --hero-glow: color-mix(in srgb, var(--accent) 18%, transparent);
+    --hero-glow-2: color-mix(in srgb, #4a6a8a 12%, transparent);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-border: var(--border);
+  --radius-tool: var(--radius);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  color: var(--fg);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 120% 70% at 50% -15%, var(--hero-glow), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 95% 40%, var(--hero-glow-2), transparent 50%);
+  background-attachment: fixed;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#app-root {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--accent) 75%, var(--fg));
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.font-display-hero {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@keyframes dropzone-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+.dropzone-drag {
+  animation: dropzone-pulse 1.2s ease-in-out infinite;
+  border-color: var(--accent) !important;
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-elevated)) !important;
+}
+
+@keyframes stage-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stage-enter {
+  animation: stage-fade-in 0.35s ease-out both;
+}
+
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+    color: #121820 !important;
+  }
+
+  body::before {
+    display: none !important;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  #app-root {
+    display: block;
+  }
+
+  .results-dashboard {
+    break-inside: avoid;
+  }
+
+  .results-disclaimer {
+    border-color: #ccc !important;
+    color: #333 !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

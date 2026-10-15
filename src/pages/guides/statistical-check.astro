@@ -1,0 +1,41 @@
+---
+import DocLayout from "../../layouts/DocLayout.astro";
+---
+
+<DocLayout
+  title="Statistical check"
+  description="How Image Identifier’s optional statistical check works at a high level — limits, scores, and when to skip it."
+  updated="2026-10-14"
+>
+  <p>
+    The statistical check is optional. It only runs if you start it. The first run may download a
+    model to your browser; later runs may use a cache when available.
+  </p>
+
+  <h2>What the scores mean</h2>
+  <p>
+    You will see model labels and numeric scores. Those numbers are model outputs for categories the
+    model was trained on — not a courtroom probability that an image is “fake” or “real.”
+  </p>
+  <ul>
+    <li>Do not read a high score as certainty.</li>
+    <li>False positives and false negatives both happen.</li>
+    <li>Newer generators and heavy compression often confuse detectors.</li>
+  </ul>
+
+  <h2>When to skip it</h2>
+  <ul>
+    <li>Low-memory devices or unstable networks.</li>
+    <li>You only need credentials or file details for your question.</li>
+    <li>You need a definitive authenticity decision (this tool cannot provide one).</li>
+  </ul>
+
+  <h2>Failure is OK</h2>
+  <p>
+    If the statistical check fails to download or run, Credentials and Details results still stand.
+    Export and print will reflect that the statistical module was skipped or failed.
+  </p>
+  <p>
+    Full disclaimer text also appears on the Statistical tab inside the <a href="/">tool</a>.
+  </p>
+</DocLayout>

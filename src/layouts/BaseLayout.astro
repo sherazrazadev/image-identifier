@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const {
+  title = "Image Identifier",
+  description = "Check authenticity signals available in an image file — evidence in your browser, not a guarantee of authenticity.",
+  noindex = false,
+  ogType = "website",
+} = Astro.props;
+
+const site = Astro.site?.href?.replace(/\/$/, "") || "https://image.tommyfx.pk";
+const pathname = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonical = new URL(pathname === "//" ? "/" : pathname, `${site}/`).href;
+const pageTitle = title === "Image Identifier" ? title : `${title} · Image Identifier`;
+const ogImage = new URL("/favicon.svg", `${site}/`).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex,nofollow" /> : <meta name="robots" content="index,follow" />}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Image Identifier" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="app-root">
+      <SiteHeader />
+      <main class="flex-1 w-full">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+  </body>
+</html>

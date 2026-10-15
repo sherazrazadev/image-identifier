@@ -1,0 +1,38 @@
+---
+import DocLayout from "../../layouts/DocLayout.astro";
+---
+
+<DocLayout
+  title="File details"
+  description="How to read image file details in Image Identifier — camera fields, software tags, and generation clues."
+  updated="2026-10-14"
+>
+  <p>
+    Many image files carry extra fields: camera make and model, software names, timestamps, and
+    sometimes generation-related text. Image Identifier groups readable fields so you can inspect
+    them without treating any single tag as proof.
+  </p>
+
+  <h2>Useful categories</h2>
+  <ul>
+    <li><strong>Camera / capture</strong> — device or exposure-related fields when present.</li>
+    <li><strong>Software &amp; editing</strong> — applications that may have written or edited the file.</li>
+    <li><strong>Possible generation clues</strong> — fields that resemble generation tooling (labeled as clues).</li>
+    <li><strong>Location</strong> — hidden by default if the file may include location data.</li>
+  </ul>
+
+  <h2>Interpretation rules</h2>
+  <ul>
+    <li>Missing fields do not mean the image is AI-generated.</li>
+    <li>Camera fields do not prove the image is unedited or authentic.</li>
+    <li>A software tag may indicate editing rather than original capture.</li>
+    <li>Generation-related text is a clue, not cryptographic proof.</li>
+    <li>Fields can be copied, stripped, or forged.</li>
+  </ul>
+
+  <h2>Privacy tip</h2>
+  <p>
+    Location fields can be sensitive. Image Identifier keeps them hidden until you choose to reveal
+    them. See also the <a href="/privacy/">Privacy</a> page.
+  </p>
+</DocLayout>

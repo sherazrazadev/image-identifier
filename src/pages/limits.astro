@@ -1,0 +1,39 @@
+---
+import DocLayout from "../layouts/DocLayout.astro";
+---
+
+<DocLayout
+  title="Provenance limits"
+  description="Limits of Image Identifier evidence — conflicts, incomplete checks, and why results are not certification."
+  updated="2026-10-14"
+>
+  <p>
+    Image Identifier reconciles independent checks into evidence labels. It preserves conflicts
+    instead of inventing a single “authentic” or “fake” stamp.
+  </p>
+
+  <h2>Hard limits</h2>
+  <ul>
+    <li>No guarantee of real vs fake.</li>
+    <li>No legal or journalistic certification.</li>
+    <li>Not every generator, camera, or editor leaves detectable traces.</li>
+    <li>Optional statistical scoring is incomplete and error-prone.</li>
+  </ul>
+
+  <h2>Conflicting evidence</h2>
+  <p>
+    Example: camera-related details can appear alongside generation-related clues. The summary should
+    show conflict rather than picking a winner. Inspect each tab for the raw signals.
+  </p>
+
+  <h2>Incomplete analysis</h2>
+  <p>
+    If one check fails, others may still succeed. “Analysis incomplete” means at least one path did
+    not finish — not that the image is suspicious by itself.
+  </p>
+
+  <p>
+    See also <a href="/methodology/">Limits (summary)</a> and the
+    <a href="/guides/">full guide index</a>.
+  </p>
+</DocLayout>

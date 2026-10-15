@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const guides = [
+  {
+    href: "/guides/credentials/",
+    title: "Content credentials",
+    body: "What recorded credentials can and cannot tell you about an image.",
+  },
+  {
+    href: "/guides/file-details/",
+    title: "File details",
+    body: "How to read camera, software, and other fields found in a file.",
+  },
+  {
+    href: "/guides/statistical-check/",
+    title: "Statistical check",
+    body: "Optional local scoring — limits, false positives, and when to skip it.",
+  },
+  {
+    href: "/guides/missing-signals/",
+    title: "Missing signals",
+    body: "Why empty results are common and why they are not proof of authenticity.",
+  },
+  {
+    href: "/limits/",
+    title: "Provenance limits",
+    body: "Hard limits of evidence-based review and conflicting signals.",
+  },
+];
+---
+
+<BaseLayout
+  title="Guides"
+  description="Guides for interpreting Image Identifier results — credentials, file details, statistical checks, and limits."
+>
+  <section class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+    <h1 class="font-display text-3xl font-bold text-fg m-0">Guides</h1>
+    <p class="mt-4 text-muted leading-relaxed">
+      Short explainers for reading results. They describe what evidence means — not a guarantee that
+      an image is real or fake.
+    </p>
+    <ul class="mt-8 list-none m-0 p-0 space-y-4">
+      {
+        guides.map((g) => (
+          <li class="m-0 rounded-[var(--radius)] border border-border bg-bg-elevated px-5 py-4">
+            <a href={g.href} class="font-display font-semibold text-fg no-underline hover:text-accent">
+              {g.title}
+            </a>
+            <p class="mt-1 mb-0 text-sm text-muted">{g.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-10 text-sm">
+      <a href="/" class="text-accent">Open the tool →</a>
+    </p>
+  </section>
+</BaseLayout>

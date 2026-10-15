@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacy"
+  description="How Image Identifier handles your images, local analysis, and network requests for assets and optional models."
+>
+  <article class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+    <h1 class="font-display text-3xl font-bold text-fg m-0">Privacy</h1>
+    <p class="mt-4 text-muted leading-relaxed">
+      Image Identifier is built to analyze the image you select in your browser. Your selected image
+      bytes are not uploaded to an application backend for analysis, and we do not send them to a
+      third-party detector API as part of the core tool.
+    </p>
+
+    <h2 class="font-display text-xl font-bold text-fg mt-10 mb-3">What stays local</h2>
+    <ul class="text-muted pl-5 leading-relaxed space-y-2">
+      <li>The file you choose is read in the browser for validation and review.</li>
+      <li>Results you see come from checks running on your device for that session.</li>
+      <li>We do not create accounts or store your images in a cloud gallery.</li>
+      <li>We do not save image contents, prompts, or location fields to localStorage by default.</li>
+    </ul>
+
+    <h2 class="font-display text-xl font-bold text-fg mt-10 mb-3">What may use the network</h2>
+    <p class="text-muted leading-relaxed">
+      “Analyzes locally” is not the same as “never uses the network.” The site may still request:
+    </p>
+    <ul class="text-muted pl-5 leading-relaxed space-y-2">
+      <li>Static site assets (HTML, CSS, JavaScript, fonts, icons).</li>
+      <li>Runtime modules required by the tool (including WebAssembly binaries hosted with the app).</li>
+      <li>
+        An optional model download if you explicitly start the statistical check (first run or after
+        cache eviction).
+      </li>
+      <li>Analytics or advertising scripts only if they are enabled later — none are required for the tool to work today.</li>
+    </ul>
+    <p class="text-muted leading-relaxed">
+      Those requests should not include your selected image bytes. Before a public release with ads or
+      analytics, the Network panel should be re-checked while running all analysis paths.
+    </p>
+
+    <h2 class="font-display text-xl font-bold text-fg mt-10 mb-3">Sensitive fields</h2>
+    <p class="text-muted leading-relaxed">
+      If a file may contain location-related fields, they stay hidden until you choose to reveal them
+      in the results view.
+    </p>
+
+    <h2 class="font-display text-xl font-bold text-fg mt-10 mb-3">Contact</h2>
+    <p class="text-muted leading-relaxed">
+      Privacy questions: see the <a href="/contact/">Contact</a> page.
+    </p>
+
+    <p class="mt-10 text-sm text-muted">
+      <a href="/">← Back to the tool</a>
+    </p>
+  </article>
+</BaseLayout>
