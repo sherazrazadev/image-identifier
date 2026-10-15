@@ -31,7 +31,7 @@ import ResultsDashboard from "./ResultsDashboard.jsx";
  */
 
 const PRIVACY_LINE =
-  "Analyzes locally in your browser — selected image bytes are not uploaded to an application backend. The site may still load assets over the network. See Privacy.";
+  "Free check in your browser — your image is not uploaded to our servers. See Privacy.";
 
 export default function UploadTool() {
   const inputId = useId();
@@ -103,23 +103,9 @@ export default function UploadTool() {
     setPhase("idle");
   }, [clearObjectUrl, resetResults]);
 
-  const runStatistical = useCallback(() => {
-    const file = sourceFileRef.current;
-    const jobId = jobIdRef.current;
-    const mime = selection?.mimeType;
-    if (!file || !jobId || !mime || !mlClientRef.current) return;
-    setStatisticalStatus("running");
-    setStatisticalStage("loading_model");
-    setStatisticalResult(null);
-    void mlClientRef.current.run(file, mime, `${jobId}:stat`);
-  }, [selection?.mimeType]);
-
-  const cancelStatistical = useCallback(() => {
-    mlClientRef.current?.cancel();
-    setStatisticalStatus("skipped");
-    setStatisticalStage(null);
-    setStatisticalResult(null);
-  }, []);
+  // Manual run/cancel for the check UI was removed — check starts automatically.
+  // const runStatistical = ...
+  // const cancelStatistical = ...
 
   useEffect(() => {
     const client = new AnalysisJobClient();
@@ -294,7 +280,15 @@ export default function UploadTool() {
       setPhase("analyzing");
       setDetailsStatus("running");
       setProvenanceStatus("running");
-      setStatisticalStatus("skipped");
+      // Auto-run the check — users only need AI vs real, not a manual step.
+      setStatisticalStatus("running");
+      setStatisticalStage("loading_model");
+      setStatisticalResult(null);
+      void mlClientRef.current?.run(
+        validated.data.file,
+        validated.data.mimeType,
+        `${analysisJobId}:stat`,
+      );
     },
     [clearObjectUrl, resetResults],
   );
@@ -372,7 +366,7 @@ export default function UploadTool() {
 
           <div className="space-y-1 pointer-events-none">
             <p className="font-display text-lg font-semibold text-fg m-0">
-              {isDragActive ? "Drop image to inspect" : "Drop an image here"}
+              {isDragActive ? "Drop to check" : "Drop a photo to check"}
             </p>
             <p className="text-sm text-muted m-0">
               or <span className="font-semibold text-accent underline-offset-2">browse files</span>
@@ -427,8 +421,6 @@ export default function UploadTool() {
           statisticalResult={statisticalResult}
           statisticalStatus={statisticalStatus}
           statisticalStage={statisticalStage}
-          onRunStatistical={phase === "ready" ? runStatistical : undefined}
-          onCancelStatistical={cancelStatistical}
           onAnalyzeAnother={resetAll}
           onClear={resetAll}
           onCancel={cancelJob}
