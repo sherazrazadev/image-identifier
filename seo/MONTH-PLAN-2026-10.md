@@ -40,7 +40,7 @@ Map 1 post → 1 primary phrase → link to `/` CTA. Avoid cannibalizing with ne
 | --- | --- |
 | 3–4 | MD/content-collection blog workflow — **done** (`src/content/blog/`) |
 | 5 | Post: “Free AI image checker (no upload)” → `/` — **done** (`/blog/free-ai-image-checker-no-upload/`) |
-| 6 | Post: “How accurate are AI image detectors?” → FAQ/terms |
+| 6 | Post: “How accurate are AI image detectors?” → FAQ/terms — **done** (`/blog/how-accurate-are-ai-image-detectors/`) |
 | 7 | Strengthen homepage copy to 300+ useful words below fold (GEO flag) without leaking methods |
 | 8 | Internal link audit: every blog post ↔ FAQ ↔ Privacy ↔ tool |
 | 9 | GEO re-audit; target score **≥ 68** |

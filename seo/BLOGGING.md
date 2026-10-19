@@ -16,4 +16,5 @@ author: Image Identifier
 2. Write Markdown body (link to `/` for the tool; no detection internals).
 3. Commit, push — Pages rebuilds `/blog/your-slug/`.
 
-Day-1 post: `/blog/free-ai-image-checker-no-upload/`.
+Day-1 post: `/blog/free-ai-image-checker-no-upload/`  
+Day-2 post: `/blog/how-accurate-are-ai-image-detectors/`
