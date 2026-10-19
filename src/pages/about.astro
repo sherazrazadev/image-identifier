@@ -1,28 +1,23 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleLayout from "../layouts/ArticleLayout.astro";
 ---
 
-<BaseLayout
+<ArticleLayout
   title="About"
   description="About Image Identifier — a free browser tool to check if an image looks AI-generated or real."
 >
-  <article class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-    <h1 class="font-display text-3xl font-bold text-fg m-0">About</h1>
-    <p class="mt-4 text-muted leading-relaxed">
-      Image Identifier is a free tool that helps you check whether a photo looks AI-generated or
-      real. Results are estimates and can be wrong — not legal proof.
-    </p>
-    <p class="text-muted leading-relaxed">
-      The check runs in your browser on the file you choose. Your image is not uploaded to our
-      servers. The site may still load app assets over the network.
-    </p>
-    <p class="text-muted leading-relaxed">
-      Open the <a href="/">tool</a> to try a file.
-    </p>
-    <p class="mt-10 text-sm text-muted">
-      <a href="/contact/">Contact</a>
-      <span class="mx-2">·</span>
-      <a href="/">Back to the tool</a>
-    </p>
-  </article>
-</BaseLayout>
+  <span slot="crumb" class="text-fg">About</span>
+
+  <p>
+    Image Identifier is a free tool that helps you check whether a photo looks AI-generated or real.
+    Results are estimates and can be wrong — not legal proof.
+  </p>
+  <p>
+    The check runs in your browser on the file you choose. Your image is not uploaded to our servers
+    for analysis. The site may still load app assets over the network.
+  </p>
+  <p>
+    Start with the <a href="/">tool</a>, skim the <a href="/faq/">FAQ</a>, or read the
+    <a href="/blog/">blog</a>.
+  </p>
+</ArticleLayout>

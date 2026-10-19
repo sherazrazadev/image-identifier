@@ -5,12 +5,12 @@ import SiteFooter from "../components/SiteFooter.astro";
 
 const {
   title = "Image Identifier",
-  description = "Check authenticity signals available in an image file — evidence in your browser, not a guarantee of authenticity.",
+  description = "Free AI image checker: is this photo AI-generated or real? Runs in your browser. Not legal proof.",
   noindex = false,
   ogType = "website",
 } = Astro.props;
 
-const site = Astro.site?.href?.replace(/\/$/, "") || "https://image.tommyfx.pk";
+const site = Astro.site?.href?.replace(/\/$/, "") || "https://image-identifier.pages.dev";
 const pathname = Astro.url.pathname.endsWith("/")
   ? Astro.url.pathname
   : `${Astro.url.pathname}/`;

@@ -23,7 +23,8 @@ function omitOrtWasmFromBundle() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://image.tommyfx.pk",
+  // Live Pages URL until custom domain (image.tommyfx.pk) is attached.
+  site: "https://image-identifier.pages.dev",
   vite: {
     plugins: [tailwindcss(), omitOrtWasmFromBundle()],
     assetsInclude: ["**/*.wasm"],
@@ -38,7 +39,15 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes("/404"),
+      filter: (page) => {
+        if (page.includes("/404")) return false;
+        // Keep internal methodology pages out of the public sitemap.
+        if (page.includes("/guides/")) return false;
+        if (page.includes("/methodology")) return false;
+        if (page.includes("/limits")) return false;
+        if (page.includes("/how-it-works")) return false;
+        return true;
+      },
     }),
   ],
 });

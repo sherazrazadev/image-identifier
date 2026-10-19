@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 
-const { title, description, updated } = Astro.props;
+const { title, description, updated, noindex = true } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} ogType="article">
+<BaseLayout title={title} description={description} ogType="article" noindex={noindex}>
   <article class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
     <p class="m-0 text-sm text-muted">
       <a href="/" class="text-accent no-underline hover:underline">Tool</a>

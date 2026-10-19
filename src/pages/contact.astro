@@ -1,25 +1,19 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleLayout from "../layouts/ArticleLayout.astro";
 ---
 
-<BaseLayout
+<ArticleLayout
   title="Contact"
   description="Contact Image Identifier for product or privacy questions."
 >
-  <article class="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-    <h1 class="font-display text-3xl font-bold text-fg m-0">Contact</h1>
-    <p class="mt-4 text-muted leading-relaxed">
-      For product feedback or privacy questions about Image Identifier, email:
-    </p>
-    <p class="text-fg font-medium">
-      <a href="mailto:hello@tommyfx.pk">hello@tommyfx.pk</a>
-    </p>
-    <p class="text-muted leading-relaxed">
-      Please do not send sensitive images by email unless necessary. Prefer describing the issue
-      without attaching private photos.
-    </p>
-    <p class="mt-10 text-sm text-muted">
-      <a href="/">← Back to the tool</a>
-    </p>
-  </article>
-</BaseLayout>
+  <span slot="crumb" class="text-fg">Contact</span>
+
+  <p>For product feedback or privacy questions about Image Identifier, email:</p>
+  <p class="!text-fg font-medium">
+    <a href="mailto:hello@tommyfx.pk">hello@tommyfx.pk</a>
+  </p>
+  <p>
+    Please do not send sensitive images by email unless necessary. Prefer describing the issue
+    without attaching private photos.
+  </p>
+</ArticleLayout>

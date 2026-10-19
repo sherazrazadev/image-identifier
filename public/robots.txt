@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /guides/
+Disallow: /methodology/
+Disallow: /limits/
+Disallow: /how-it-works/
 
-Sitemap: https://image.tommyfx.pk/sitemap-index.xml
+Sitemap: https://image-identifier.pages.dev/sitemap-index.xml

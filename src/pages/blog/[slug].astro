@@ -1,0 +1,30 @@
+---
+import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { formatPostDate, getPublishedPosts } from "../../lib/content/blog.js";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const dateStr = formatPostDate(post.data.date);
+const updatedStr = post.data.updated ? formatPostDate(post.data.updated) : null;
+---
+
+<ArticleLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={dateStr}
+  updated={updatedStr}
+  readMinutes={post.data.readMinutes}
+  author={post.data.author}
+>
+  <a slot="crumb" href="/blog/" class="text-muted no-underline hover:text-fg">Blog</a>
+  <Content />
+</ArticleLayout>

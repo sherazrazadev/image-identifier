@@ -2,14 +2,7 @@ import { useMemo } from "react";
 import { Loader2, RotateCcw, Square, X } from "lucide-react";
 import { getSimpleDisclaimer, getSimpleVerdict } from "../../lib/evidence/simpleVerdict.js";
 
-// Detail panels (credentials / file details / statistical / technical) are kept
-// in the codebase but not shown — they expose how the check works.
-// import ProvenancePanel from "./ProvenancePanel.jsx";
-// import MetadataPanel from "./MetadataPanel.jsx";
-// import StatisticalPanel from "./StatisticalPanel.jsx";
-// import TechnicalPanel from "./TechnicalPanel.jsx";
-// import { reconcileEvidence, getEvidenceDisclaimer } from "../../lib/evidence/reconcile.js";
-// import { buildAnalysisReport, downloadAnalysisReport } from "../../lib/evidence/exportReport.js";
+// Detail panels kept in repo but not shown (would expose detection surface).
 
 /**
  * @param {{
@@ -76,56 +69,67 @@ export default function ResultsDashboard({
 
   const checking = verdict.kind === "checking";
   const tone = verdictTone(verdict.kind);
+  const shortLabel =
+    verdict.kind === "ai" ? "AI-generated" : verdict.kind === "real" ? "Real" : verdict.kind === "checking" ? "Checking" : "Unclear";
 
   return (
     <div className="stage-enter space-y-4 results-dashboard">
-      <div className="rounded-[var(--radius)] border border-border bg-bg-elevated/90 p-4 sm:p-6">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-          <div className="mx-auto sm:mx-0 w-full max-w-[180px] shrink-0 overflow-hidden rounded-xl border border-border bg-bg aspect-square flex items-center justify-center">
-            <img
-              src={selection.objectUrl}
-              alt={`Preview of ${selection.fileName}`}
-              className="max-h-full max-w-full object-contain"
-            />
-          </div>
-
-          <div className="min-w-0 flex-1 text-center sm:text-left space-y-3" aria-live="polite">
-            {checking ? (
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                <Loader2 className="h-8 w-8 animate-spin text-accent shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="font-display text-2xl font-semibold text-fg m-0">{verdict.title}</p>
-                  <p className="text-sm text-muted m-0 mt-1">{verdict.detail}</p>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted m-0 mb-2">Result</p>
-                <p className={`font-display text-3xl font-bold m-0 ${tone.title}`}>{verdict.title}</p>
-                <p className="text-sm text-muted m-0 mt-2 max-w-md mx-auto sm:mx-0">{verdict.detail}</p>
-                <span
-                  className={`mt-4 inline-flex items-center rounded-xl border px-3 py-1.5 text-sm font-semibold ${tone.badge}`}
-                >
-                  {verdict.kind === "ai"
-                    ? "AI-generated"
-                    : verdict.kind === "real"
-                      ? "Real"
-                      : "Unclear"}
-                </span>
-              </div>
-            )}
-          </div>
+      <div className="rounded-[var(--radius)] border border-border bg-bg-elevated/90 p-4 sm:p-5">
+        <div className="mx-auto w-full max-w-[220px] overflow-hidden rounded-xl border border-border bg-bg aspect-square flex items-center justify-center">
+          <img
+            src={selection.objectUrl}
+            alt={`Preview of ${selection.fileName}`}
+            className="max-h-full max-w-full object-contain"
+          />
         </div>
-
-        <p className="mt-5 mb-0 rounded-xl border border-border bg-bg px-3 py-3 text-xs text-muted leading-relaxed text-center sm:text-left">
-          {getSimpleDisclaimer()}
+        <p className="mt-3 mb-0 text-center text-sm text-muted truncate" title={selection.fileName}>
+          {selection.fileName}
         </p>
       </div>
 
-      {/*
-        Advanced evidence tabs (commented — exposes detection surface):
-        Credentials / Details / Statistical / Technical panels + export JSON.
-      */}
+      <div
+        className={`rounded-[var(--radius)] border-2 px-5 py-8 sm:px-8 sm:py-10 text-center ${tone.panel}`}
+        aria-live="polite"
+      >
+        {checking ? (
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className={`h-10 w-10 animate-spin ${tone.icon}`} aria-hidden="true" />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] m-0 opacity-80">Working</p>
+              <p className={`font-display text-3xl sm:text-4xl font-extrabold m-0 mt-2 ${tone.headline}`}>
+                {verdict.title}
+              </p>
+              <p className={`text-base m-0 mt-3 max-w-md mx-auto ${tone.detail}`}>{verdict.detail}</p>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] m-0 opacity-80">Result</p>
+            <p
+              className={`font-display text-4xl sm:text-5xl font-extrabold m-0 mt-3 leading-tight tracking-tight ${tone.headline}`}
+            >
+              {shortLabel}
+            </p>
+            <p className={`text-lg sm:text-xl font-semibold m-0 mt-3 ${tone.sub}`}>
+              {verdict.title}
+            </p>
+            <p className={`text-sm sm:text-base m-0 mt-3 max-w-lg mx-auto leading-relaxed ${tone.detail}`}>
+              {verdict.detail}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <p className="m-0 rounded-[var(--radius)] border border-border bg-bg-elevated/80 px-4 py-3 text-xs text-muted leading-relaxed text-center">
+        {getSimpleDisclaimer()}{" "}
+        <a href="/faq/" className="text-accent">
+          FAQ
+        </a>
+        {" · "}
+        <a href="/terms/" className="text-accent">
+          Terms
+        </a>
+      </p>
 
       <div className="sticky bottom-3 z-10 no-print">
         <div className="flex flex-wrap gap-2 rounded-[var(--radius)] border border-border bg-bg-elevated/95 p-2 shadow-sm backdrop-blur-md">
@@ -144,19 +148,37 @@ export default function ResultsDashboard({
 function verdictTone(kind) {
   if (kind === "ai") {
     return {
-      title: "text-fg",
-      badge: "border-warn/45 bg-warn/15 text-fg",
+      panel: "border-warn/50 bg-warn/12",
+      headline: "text-fg",
+      sub: "text-fg",
+      detail: "text-muted",
+      icon: "text-warn",
     };
   }
   if (kind === "real") {
     return {
-      title: "text-fg",
-      badge: "border-ok/45 bg-ok/15 text-fg",
+      panel: "border-ok/50 bg-ok/12",
+      headline: "text-fg",
+      sub: "text-fg",
+      detail: "text-muted",
+      icon: "text-ok",
+    };
+  }
+  if (kind === "checking") {
+    return {
+      panel: "border-accent/40 bg-accent/10",
+      headline: "text-fg",
+      sub: "text-fg",
+      detail: "text-muted",
+      icon: "text-accent",
     };
   }
   return {
-    title: "text-fg",
-    badge: "border-border bg-bg text-muted",
+    panel: "border-border bg-bg-elevated/90",
+    headline: "text-fg",
+    sub: "text-fg",
+    detail: "text-muted",
+    icon: "text-muted",
   };
 }
 
