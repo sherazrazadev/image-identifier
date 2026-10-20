@@ -15,3 +15,6 @@ dist/
 npm-debug.log*
 .vscode/
 .idea/
+
+# BeyondSEO crawler venv (skill files can stay; runtime is local)
+.cursor/skills/beyondseo/.venv/

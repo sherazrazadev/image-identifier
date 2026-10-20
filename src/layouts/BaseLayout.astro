@@ -45,9 +45,10 @@ const ogImage = new URL("/favicon.svg", `${site}/`).href;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
     <div id="app-root">
       <SiteHeader />
-      <main class="flex-1 w-full">
+      <main id="main" tabindex="-1" class="flex-1 w-full outline-none">
         <slot />
       </main>
       <SiteFooter />

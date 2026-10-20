@@ -58,7 +58,7 @@ export default function StatisticalPanel({
 
       {running && (
         <div className="flex items-center gap-2 text-muted" aria-live="polite">
-          <Loader2 className="h-4 w-4 animate-spin text-accent" aria-hidden="true" />
+          <Loader2 className="h-4 w-4 animate-spin text-accent-link" aria-hidden="true" />
           <span>
             {stage === "loading_model"
               ? "Loading model (first run may take a while)…"

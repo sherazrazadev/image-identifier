@@ -31,11 +31,13 @@ import ResultsDashboard from "./ResultsDashboard.jsx";
  */
 
 const PRIVACY_LINE =
-  "Free check in your browser — your image is not uploaded to our servers. See Privacy.";
+  "Free check in your browser — your image is not uploaded to our servers. See our";
 
 export default function UploadTool() {
   const inputId = useId();
   const errorId = useId();
+  const dropzoneId = useId();
+  const refocusDropzoneRef = useRef(false);
   const objectUrlRef = useRef(/** @type {string | null} */ (null));
   const jobIdRef = useRef(/** @type {string | null} */ (null));
   const validationTokenRef = useRef(/** @type {string | null} */ (null));
@@ -87,6 +89,7 @@ export default function UploadTool() {
     setSelection(null);
     setErrorMessage(null);
     resetResults();
+    refocusDropzoneRef.current = true;
     setPhase("idle");
   }, [clearObjectUrl, resetResults]);
 
@@ -100,6 +103,7 @@ export default function UploadTool() {
     clearObjectUrl();
     setSelection(null);
     setErrorMessage(null);
+    refocusDropzoneRef.current = true;
     setPhase("idle");
   }, [clearObjectUrl, resetResults]);
 
@@ -336,63 +340,35 @@ export default function UploadTool() {
   const showDashboard =
     (phase === "analyzing" || phase === "ready") && selection != null;
 
+  useEffect(() => {
+    if (!showDropzone || !refocusDropzoneRef.current) return;
+    refocusDropzoneRef.current = false;
+    document.getElementById(dropzoneId)?.focus();
+  }, [showDropzone, dropzoneId]);
+
   return (
-    <div className="w-full max-w-[min(var(--max-tool),40rem)] mx-auto sm:max-w-3xl">
-      {showDropzone && (
-        <div
-          {...getRootProps({
-            className: [
-              "relative rounded-[var(--radius)] border-2 border-dashed border-border bg-bg-elevated/80",
-              "px-4 py-10 sm:px-8 sm:py-12 text-center transition-colors",
-              "min-h-[12.5rem] flex flex-col items-center justify-center gap-4",
-              "cursor-pointer touch-manipulation no-print",
-              isDragActive ? "dropzone-drag" : "hover:border-accent/50",
-            ]
-              .filter(Boolean)
-              .join(" "),
-            "aria-label": `Select an image file. Supported formats: ${FORMAT_LABEL}. Maximum size ${MAX_FILE_MB} megabytes.`,
-            "aria-describedby": errorMessage ? errorId : undefined,
-            "aria-invalid": errorMessage ? true : undefined,
-          })}
-        >
-          <input {...getInputProps({ id: inputId })} />
-
-          <div
-            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/15 text-accent pointer-events-none"
-            aria-hidden="true"
-          >
-            <ImagePlus className="h-7 w-7" strokeWidth={1.75} />
-          </div>
-
-          <div className="space-y-1 pointer-events-none">
-            <p className="font-display text-lg font-semibold text-fg m-0">
-              {isDragActive ? "Drop to check" : "Drop a photo to check"}
-            </p>
-            <p className="text-sm text-muted m-0">
-              or <span className="font-semibold text-accent underline-offset-2">browse files</span>
-            </p>
-          </div>
-
-          <p className="text-xs text-muted m-0 pointer-events-none">
-            Supported: {FORMAT_LABEL} · Max {MAX_FILE_MB} MB
-          </p>
-        </div>
-      )}
-
+    <div className="w-full max-w-3xl mx-auto">
+      {/* Error sits above the dropzone so it is seen first; the zone below stays live for a retry. */}
       {errorMessage && (
         <div
           id={errorId}
           role="alert"
-          className="mt-3 flex gap-2 rounded-[var(--radius)] border border-danger/40 bg-danger/10 px-3 py-2.5 text-sm text-fg stage-enter no-print"
+          className="mb-4 flex gap-3 rounded-[var(--radius)] border border-border border-l-[6px] border-l-danger bg-bg-elevated p-4 text-left shadow-sm stage-enter no-print"
         >
-          <AlertCircle className="h-5 w-5 shrink-0 text-danger" aria-hidden="true" />
-          <div className="min-w-0 flex-1 text-left">
-            <p className="m-0">{errorMessage}</p>
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-danger/15 text-danger"
+            aria-hidden="true"
+          >
+            <AlertCircle className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-base font-bold text-fg m-0">We couldn’t use that file</p>
+            <p className="text-sm text-muted m-0 mt-1 leading-relaxed">{errorMessage}</p>
             {phase === "error" && (
               <button
                 type="button"
                 onClick={() => open()}
-                className="mt-2 min-h-11 inline-flex items-center rounded-xl border border-border bg-bg px-3 py-2 text-sm font-semibold text-fg hover:border-accent/50 cursor-pointer"
+                className="mt-3 inline-flex min-h-11 cursor-pointer items-center rounded-xl border border-border bg-bg px-4 py-2 text-sm font-semibold text-fg transition hover:border-accent active:scale-[0.98]"
               >
                 Try another file
               </button>
@@ -401,12 +377,67 @@ export default function UploadTool() {
         </div>
       )}
 
+      {showDropzone && (
+        <div
+          {...getRootProps({
+            className: [
+              "group relative rounded-[var(--radius)] border-2 border-dashed bg-bg-elevated shadow-sm",
+              errorMessage ? "border-danger/60" : "border-fg/25",
+              "px-4 text-center transition-colors duration-200",
+              // Compact after an error so the message and the retry zone share one screen.
+              errorMessage
+                ? "py-8 sm:py-10 min-h-[12rem]"
+                : "py-12 sm:py-16 min-h-[16rem] sm:min-h-[20rem] sm:px-8",
+              "flex flex-col items-center justify-center gap-6",
+              "cursor-pointer touch-manipulation no-print",
+              isDragActive ? "dropzone-drag" : "hover:border-accent hover:bg-accent/5",
+            ]
+              .filter(Boolean)
+              .join(" "),
+            id: dropzoneId,
+            role: "button",
+            "aria-label": `Select an image file. Supported formats: ${FORMAT_LABEL}. Maximum size ${MAX_FILE_MB} megabytes.`,
+            "aria-describedby": errorMessage ? errorId : undefined,
+            "aria-invalid": errorMessage ? true : undefined,
+          })}
+        >
+          <input {...getInputProps({ id: inputId })} />
+
+          {!errorMessage && (
+            <div
+              className="flex h-16 w-16 items-center justify-center rounded-xl bg-accent/15 text-accent-link pointer-events-none"
+              aria-hidden="true"
+            >
+              <ImagePlus className="h-8 w-8" strokeWidth={1.75} />
+            </div>
+          )}
+
+          <p className="font-display text-xl sm:text-2xl font-bold text-fg m-0 pointer-events-none">
+            {isDragActive ? "Drop to check" : "Drop a photo to check"}
+          </p>
+
+          {/* Visual only: the whole zone is the real button (no nested controls). */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none inline-flex min-h-12 items-center rounded-xl bg-accent px-6 text-base font-semibold text-accent-fg shadow-sm transition group-hover:brightness-95 group-active:scale-[0.98]"
+          >
+            Choose image
+          </span>
+
+          <p className="text-sm text-muted m-0 pointer-events-none">
+            {FORMAT_LABEL} · up to {MAX_FILE_MB} MB
+          </p>
+        </div>
+      )}
+
       {phase === "validating" && selection && (
         <div
-          className="mt-3 flex items-center gap-2 rounded-[var(--radius)] border border-border bg-bg-elevated/80 px-4 py-3 text-sm text-muted stage-enter no-print"
+          className="mt-3 rounded-[var(--radius)] border border-border bg-bg-elevated/80 px-4 py-3 text-sm text-muted stage-enter no-print"
+          role="status"
           aria-live="polite"
         >
-          Checking your image…
+          <p className="m-0">Checking your image…</p>
+          <div className="checking-bar mt-2" aria-hidden="true" />
         </div>
       )}
 
@@ -427,10 +458,10 @@ export default function UploadTool() {
         />
       )}
 
-      <p className="mt-4 text-center text-xs text-muted leading-relaxed m-0 px-1 no-print">
+      <p className="mt-4 text-center text-sm text-muted leading-relaxed m-0 px-1 no-print">
         {PRIVACY_LINE}{" "}
-        <a href="/privacy/" className="text-accent">
-          Privacy
+        <a href="/privacy/" className="text-accent-link">
+          Privacy policy
         </a>
         .
       </p>

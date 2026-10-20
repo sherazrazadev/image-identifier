@@ -28,8 +28,8 @@ const [featured, ...rest] = posts;
           href={`/blog/${featured.id}/`}
           class="mt-10 block no-underline rounded-[var(--radius)] border-2 border-accent/35 bg-accent/8 px-5 py-6 sm:px-7 sm:py-8 group"
         >
-          <p class="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-accent">Latest</p>
-          <h2 class="font-display text-2xl sm:text-[1.65rem] font-bold text-fg m-0 mt-2 group-hover:text-accent text-balance">
+          <p class="m-0 text-xs font-semibold uppercase tracking-[0.12em] text-accent-link">Latest</p>
+          <h2 class="font-display text-2xl sm:text-[1.65rem] font-bold text-fg m-0 mt-2 group-hover:text-accent-link text-balance">
             {featured.data.title}
           </h2>
           <p class="m-0 mt-3 text-muted leading-relaxed">{featured.data.description}</p>
@@ -56,7 +56,7 @@ const [featured, ...rest] = posts;
                 <span class="mx-2">·</span>
                 {post.data.readMinutes} min read
               </p>
-              <h2 class="font-display text-xl font-bold text-fg m-0 mt-2 group-hover:text-accent text-balance">
+              <h2 class="font-display text-xl font-bold text-fg m-0 mt-2 group-hover:text-accent-link text-balance">
                 {post.data.title}
               </h2>
               <p class="m-0 mt-2 text-sm text-muted leading-relaxed">{post.data.description}</p>
@@ -68,7 +68,7 @@ const [featured, ...rest] = posts;
 
     <p class="mt-10 mb-0 text-sm text-muted">
       Prefer to check a file now?
-      <a href="/" class="text-accent font-semibold">Open the free tool</a>.
+      <a href="/" class="text-accent-link font-semibold">Open the free tool</a>.
     </p>
   </section>
 </BaseLayout>

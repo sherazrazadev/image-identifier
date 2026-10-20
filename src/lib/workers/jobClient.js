@@ -1,6 +1,16 @@
 import { createJobId } from "../validation/imageFile.js";
-import { readProvenance } from "../c2pa/client.js";
 import { createWorkerRequest, isStaleJob } from "./contract.js";
+
+/** @type {Promise<typeof import("../c2pa/client.js")> | null} */
+let c2paModulePromise = null;
+
+/** Credentials SDK is loaded on first analysis, not on first paint. */
+function loadC2paClient() {
+  if (!c2paModulePromise) {
+    c2paModulePromise = import("../c2pa/client.js");
+  }
+  return c2paModulePromise;
+}
 
 /**
  * Orchestrates off-main-thread metadata + main-thread credentials with shared jobId,
@@ -155,6 +165,11 @@ export class AnalysisJobClient {
 
     const started = performance.now();
     try {
+      if (this._cancelled.has(jobId) || isStaleJob(this._activeJobId, jobId)) {
+        return;
+      }
+
+      const { readProvenance } = await loadC2paClient();
       if (this._cancelled.has(jobId) || isStaleJob(this._activeJobId, jobId)) {
         return;
       }

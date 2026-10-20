@@ -17,13 +17,17 @@
   --bg-elevated: #ffffff;
   --fg: #121820;
   --muted: #5a6570;
-  --accent: #0a7a6c;
-  --accent-fg: #ffffff;
-  --warn: #b7791f;
+  /* Accent #FF6B35 is for fills/bars/borders. White on it is only 2.8:1, so
+     text on accent uses --accent-fg (dark ink, 6.3:1) and orange text/links
+     use --accent-link (#c2410c, 5.2:1 on white). */
+  --accent: #ff6b35;
+  --accent-fg: #121820;
+  --accent-link: #c2410c;
+  --warn: #a16207;
   --danger: #b42318;
   --ok: #0f7a4d;
   --border: color-mix(in srgb, var(--fg) 12%, transparent);
-  --radius: 14px;
+  --radius: 12px;
   --font-display: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
   --font-body: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
   --max-tool: 42rem;
@@ -40,9 +44,10 @@
     --bg-elevated: #1a2029;
     --fg: #e8edf2;
     --muted: #9aa6b4;
-    --accent: #3dbea8;
-    --accent-fg: #0a1614;
-    --warn: #e0a84a;
+    --accent: #ff6b35;
+    --accent-fg: #121820;
+    --accent-link: #ff8f63;
+    --warn: #e5b94a;
     --danger: #e26d7a;
     --ok: #5ecf9a;
     --border: color-mix(in srgb, var(--fg) 14%, transparent);
@@ -59,6 +64,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
+  --color-accent-link: var(--accent-link);
   --color-warn: var(--warn);
   --color-danger: var(--danger);
   --color-ok: var(--ok);
@@ -108,16 +114,16 @@ body::before {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-link);
   text-underline-offset: 0.15em;
 }
 
 a:hover {
-  color: color-mix(in srgb, var(--accent) 75%, var(--fg));
+  color: color-mix(in srgb, var(--accent-link) 80%, var(--fg));
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-link);
   outline-offset: 3px;
 }
 
@@ -162,6 +168,83 @@ a:hover {
 
 .stage-enter {
   animation: stage-fade-in 0.35s ease-out both;
+}
+
+@keyframes verdict-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.verdict-reveal {
+  animation: verdict-reveal 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes checking-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* Indeterminate: shows activity without implying a percentage. */
+.checking-bar {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.checking-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: checking-sweep 1.4s ease-in-out infinite;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  z-index: 50;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.75rem;
+  background: var(--bg-elevated);
+  color: var(--fg);
+  font-weight: 600;
+  border: 1px solid var(--border);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .checking-bar::after {
+    animation: none;
+    width: 100%;
+    opacity: 0.5;
+  }
 }
 
 @media print {

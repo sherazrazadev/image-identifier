@@ -1,0 +1,21 @@
+---
+/**
+ * Ad placeholder. Renders nothing unless PUBLIC_ADS_ENABLED=true at build time.
+ * Keep slots away from the upload dropzone and result actions (AdSense policy).
+ */
+const { name = "default", class: className = "" } = Astro.props;
+const enabled = import.meta.env.PUBLIC_ADS_ENABLED === "true";
+---
+
+{
+  enabled && (
+    <aside
+      class:list={["no-print mx-auto w-full max-w-4xl", className]}
+      aria-label="Advertisement"
+      data-ad-slot={name}
+    >
+      <p class="m-0 mb-1 text-[0.6875rem] uppercase tracking-[0.14em] text-muted">Advertisement</p>
+      <div class="min-h-[250px] rounded-[var(--radius)] border border-dashed border-border bg-bg-elevated/50" />
+    </aside>
+  )
+}

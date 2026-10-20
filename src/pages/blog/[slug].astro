@@ -24,6 +24,7 @@ const updatedStr = post.data.updated ? formatPostDate(post.data.updated) : null;
   updated={updatedStr}
   readMinutes={post.data.readMinutes}
   author={post.data.author}
+  ads
 >
   <a slot="crumb" href="/blog/" class="text-muted no-underline hover:text-fg">Blog</a>
   <Content />

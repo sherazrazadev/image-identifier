@@ -45,7 +45,7 @@ const guides = [
       {
         guides.map((g) => (
           <li class="m-0 rounded-[var(--radius)] border border-border bg-bg-elevated px-5 py-4">
-            <a href={g.href} class="font-display font-semibold text-fg no-underline hover:text-accent">
+            <a href={g.href} class="font-display font-semibold text-fg no-underline hover:text-accent-link">
               {g.title}
             </a>
             <p class="mt-1 mb-0 text-sm text-muted">{g.body}</p>
@@ -54,7 +54,7 @@ const guides = [
       }
     </ul>
     <p class="mt-10 text-sm">
-      <a href="/" class="text-accent">Open the tool →</a>
+      <a href="/" class="text-accent-link">Open the tool →</a>
     </p>
   </section>
 </BaseLayout>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import AdSlot from "../components/AdSlot.astro";
 
 const {
+  ads = false,
   title,
   description,
   date = null,
@@ -50,16 +52,17 @@ const {
       )
     }
     <div
-      class="article-body mt-8 text-muted leading-relaxed space-y-4 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-fg [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:m-0 [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:pl-5 [&_ol]:space-y-2 [&_table]:w-full [&_table]:text-sm [&_th]:text-left [&_th]:font-semibold [&_th]:text-fg [&_td]:py-1.5 [&_th]:py-1.5 [&_a]:text-accent"
+      class="article-body mt-8 text-muted leading-relaxed space-y-4 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-fg [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:m-0 [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:pl-5 [&_ol]:space-y-2 [&_table]:w-full [&_table]:text-sm [&_th]:text-left [&_th]:font-semibold [&_th]:text-fg [&_td]:py-1.5 [&_th]:py-1.5 [&_a]:text-accent-link"
       itemprop="articleBody"
     >
       <slot />
     </div>
+    {ads && <AdSlot name="article-end" class="mt-12" />}
     <p class="mt-12 mb-0 rounded-[var(--radius)] border border-border bg-bg-elevated/80 px-4 py-4 text-sm text-muted">
       Ready to check a photo?
-      <a href="/" class="font-semibold text-accent">Use the free tool</a>
+      <a href="/" class="font-semibold text-accent-link">Use the free tool</a>
       — results are estimates, not legal proof. See the
-      <a href="/faq/" class="text-accent">FAQ</a>.
+      <a href="/faq/" class="text-accent-link">FAQ</a>.
     </p>
   </article>
 </BaseLayout>
