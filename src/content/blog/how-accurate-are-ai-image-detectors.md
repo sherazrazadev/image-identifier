@@ -30,7 +30,7 @@ A tool that feels “right” on social media samples can still miss a carefully
 | False negative | AI image labeled real | Stay skeptical of viral claims |
 | Unclear | No confident lean either way | Try another source or ask for the original file |
 
-Heavy compression, memes with big text overlays, and multi-generation screenshots are common problem cases for any public checker.
+Heavy compression, memes with big text overlays, and multi-generation screenshots are common problem cases for any public checker. If that is what you have, read [Can you tell if a screenshot or social photo is AI-generated?](/blog/check-screenshot-or-social-photo-for-ai/).
 
 ## How to use Image Identifier the smart way
 

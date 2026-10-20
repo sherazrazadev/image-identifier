@@ -17,4 +17,5 @@ author: Image Identifier
 3. Commit, push — Pages rebuilds `/blog/your-slug/`.
 
 Day-1 post: `/blog/free-ai-image-checker-no-upload/`  
-Day-2 post: `/blog/how-accurate-are-ai-image-detectors/`
+Day-2 post: `/blog/how-accurate-are-ai-image-detectors/`  
+Day-3 post: `/blog/check-screenshot-or-social-photo-for-ai/`

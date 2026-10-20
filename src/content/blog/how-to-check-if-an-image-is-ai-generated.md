@@ -24,7 +24,7 @@ Prefer a [checker that does not upload your image to our servers](/blog/free-ai-
 
 ## What to do with the answer
 
-If the tool says AI-generated, treat the image with extra caution. If it says real, stay curious — edited or re-uploaded photos can still mislead. If it says unclear, look for another source or ask the person who shared the file.
+If the tool says AI-generated, treat the image with extra caution. If it says real, stay curious — edited or re-uploaded photos can still mislead. If it says unclear, look for another source or ask the person who shared the file. Screenshots and social forwards are especially hard — see [checking a screenshot or social photo](/blog/check-screenshot-or-social-photo-for-ai/).
 
 ## Limits to keep in mind
 
