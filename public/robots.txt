@@ -1,8 +1,21 @@
+# Allow AI search engines and standard crawlers to discover and cite content
 User-agent: *
 Allow: /
 Disallow: /guides/
 Disallow: /methodology/
 Disallow: /limits/
 Disallow: /how-it-works/
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
 
 Sitemap: https://image-identifier.pages.dev/sitemap-index.xml

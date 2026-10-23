@@ -1,0 +1,18 @@
+# Image Identifier
+
+> Free, local-first in-browser AI image checker and provenance forensics tool. Analyzes JPEG and PNG images for synthetic AI patterns, metadata signatures, and C2PA credentials without uploading image bytes to any server.
+
+## Core Capabilities
+- [Free AI Image Checker](https://image-identifier.pages.dev/): Check if a photo looks AI-generated or real directly in your browser.
+- [Privacy Policy](https://image-identifier.pages.dev/privacy/): Zero-retention architecture. No images are saved, sent, or uploaded.
+- [FAQ](https://image-identifier.pages.dev/faq/): Technical explanation of false positives, screenshot limits, and verdict labels.
+- [Terms](https://image-identifier.pages.dev/terms/): Educational use guidelines; not certified legal proof.
+
+## Educational Articles & Guides
+- [How to Spot AI Profile Pictures](https://image-identifier.pages.dev/blog/spot-ai-profile-pictures-linkedin-dating-apps/): Visual clues for identifying synthetic LinkedIn and dating avatars.
+- [Can You Check Screenshots for AI?](https://image-identifier.pages.dev/blog/check-screenshot-or-social-photo-for-ai/): Understanding how social media compression and screenshotting affects detection.
+- [How Accurate Are AI Detectors?](https://image-identifier.pages.dev/blog/how-accurate-are-ai-image-detectors/): Limitations, accuracy expectations, and why certainty is impossible.
+- [Free AI Image Checker Without Upload](https://image-identifier.pages.dev/blog/free-ai-image-checker-no-upload/): Why in-browser client-side WebAssembly provides superior privacy.
+- [Why AI Checkers Are Not Legal Proof](https://image-identifier.pages.dev/blog/why-ai-image-checkers-are-not-legal-proof/): Legal and academic standards for forensic evidence.
+- [AI vs Real Photos](https://image-identifier.pages.dev/blog/ai-generated-vs-real-photos/): Common myths and visual tells.
+- [How to Check if an Image is AI-Generated](https://image-identifier.pages.dev/blog/how-to-check-if-an-image-is-ai-generated/): Practical step-by-step workflow for everyday users.

@@ -18,4 +18,5 @@ author: Image Identifier
 
 Day-1 post: `/blog/free-ai-image-checker-no-upload/`  
 Day-2 post: `/blog/how-accurate-are-ai-image-detectors/`  
-Day-3 post: `/blog/check-screenshot-or-social-photo-for-ai/`
+Day-3 post: `/blog/check-screenshot-or-social-photo-for-ai/`  
+Day-4 post: `/blog/spot-ai-profile-pictures-linkedin-dating-apps/`

@@ -18,3 +18,6 @@ npm-debug.log*
 
 # BeyondSEO crawler venv (skill files can stay; runtime is local)
 .cursor/skills/beyondseo/.venv/
+.agents
+.cursor/
+graphify-out/
